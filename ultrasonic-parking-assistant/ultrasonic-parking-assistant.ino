@@ -22,28 +22,32 @@ int distanceGetCM(){
   return pingCM;
 }
 
-void loop() {
-  int distanceGetCM = sonar.ping_cm();
-    Serial.println("Distance:  ");
-    Serial.println(distanceGetCM);
-  
-  if(distanceGetCM < 20){
+void triggerAlert(int distance){
+  if(distance < 20 && distance > 0){
     digitalWrite(buzzer, HIGH);
     digitalWrite(alert, HIGH);
-    Serial.println("Danger! Stop!");
+      Serial.println("Danger! Stop!");
   }
-  else if(distanceGetCM < 50){
+  else if(distance < 50 && distance > 0){
     digitalWrite(buzzer, HIGH);
     digitalWrite(alert, HIGH);
     delay(500);
     digitalWrite(buzzer, LOW);
     digitalWrite(alert, LOW);
     delay(500);
-    Serial.println("Caustion");
+      Serial.println("Caustion");
   }
   else{
     digitalWrite(buzzer, LOW);
     digitalWrite(alert, LOW);
-    Serial.println("Safe");
+      Serial.println("Safe");
   }
+}
+
+void loop() {
+  int currentDistance = distanceGetCM();
+    Serial.println("Distance:   ");
+    Serial.println(currentDistance);
+  triggerAlert(currentDistance);
+  delay(50);
 }
