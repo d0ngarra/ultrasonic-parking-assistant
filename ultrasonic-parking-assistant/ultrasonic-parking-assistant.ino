@@ -12,31 +12,30 @@ NewPing sonar(triggerPin, echoPin, maxdistant);
 void setup() {
   pinMode(buzzer, OUTPUT);
   pinMode(alert, OUTPUT);
+  pinMode(triggerPin, INPUT);
+  pinMode(echoPin,INPUT);
   Serial.begin(9600);
 }
 
+int distanceGetCM(){
+  float pingCM = sonar.ping_cm();
+  return pingCM;
+}
+
 void loop() {
-  int distance = sonar.ping_cm();
+  int distanceGetCM = sonar.ping_cm();
     Serial.println("Distance:  ");
-    Serial.println(distance);
-    Serial.println("cm");
-    delay(1000);
+    Serial.println(distanceGetCM);
   
-  if(distance < 100){
-    digitalWrite(buzzer, HIGH);
-    delay(1000);
-    digitalWrite(buzzer, LOW);
-    delay(1000);
-  }
-  else if(distance < 50){
-    digitalWrite(buzzer, HIGH);
-    delay(500);
-    digitalWrite(buzzer, LOW);
-    delay(500);
-  }
-  else if(distance < 25){
+  if(distanceGetCM < 20){
     digitalWrite(buzzer, HIGH);
     digitalWrite(alert, HIGH);
+  }
+  else if(distanceGetCM < 50){
+    digitalWrite(buzzer, HIGH);
+    delay(500);
+    digitalWrite(buzzer, LOW);
+    delay(500);
   }
   else{
     digitalWrite(buzzer, LOW);
