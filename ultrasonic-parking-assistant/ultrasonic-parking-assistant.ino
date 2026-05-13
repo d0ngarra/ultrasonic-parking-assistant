@@ -12,13 +12,15 @@ NewPing sonar(triggerPin, echoPin, maxdistant);
 void setup() {
   pinMode(buzzer, OUTPUT);
   pinMode(alert, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
   int distance = sonar.ping_cm();
-    Serial.print("Distance:  ");
-    Serial.print(distance);
-    Serial.print("cm");
+    Serial.println("Distance:  ");
+    Serial.println(distance);
+    Serial.println("cm");
+    delay(1000);
   
   if(distance < 100){
     digitalWrite(buzzer, HIGH);
