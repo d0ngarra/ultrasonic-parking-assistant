@@ -30,15 +30,20 @@ void loop() {
   if(distanceGetCM < 20){
     digitalWrite(buzzer, HIGH);
     digitalWrite(alert, HIGH);
+    Serial.println("Danger! Stop!");
   }
   else if(distanceGetCM < 50){
     digitalWrite(buzzer, HIGH);
+    digitalWrite(alert, HIGH);
     delay(500);
     digitalWrite(buzzer, LOW);
+    digitalWrite(alert, LOW);
     delay(500);
+    Serial.println("Caustion");
   }
   else{
     digitalWrite(buzzer, LOW);
     digitalWrite(alert, LOW);
+    Serial.println("Safe");
   }
 }
